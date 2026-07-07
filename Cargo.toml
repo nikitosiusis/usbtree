@@ -17,6 +17,7 @@ exclude = [
 ]
 
 [dependencies]
+libc = "0.2"
 nusb = "0.2.4"
 ratatui = "0.30.2"
 usb-ids = "1.2026.6"

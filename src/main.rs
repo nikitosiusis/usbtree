@@ -13,7 +13,7 @@ use ratatui::widgets::{
 };
 use ratatui::Frame;
 
-use metrics::Metrics;
+use metrics::{Metrics, MetricsWarning};
 use usb::Device;
 
 const RESCAN_INTERVAL: Duration = Duration::from_secs(1);
@@ -454,10 +454,15 @@ impl App {
             "  ·  ".fg(theme::FAINT),
             format!("up {:02}:{:02}", up / 60, up % 60).fg(theme::DIM),
             "  ·  ".fg(theme::FAINT),
-            if self.metrics.is_bytes() {
-                "◉ usbmon bytes/s".fg(theme::MINT)
-            } else {
-                "◌ urb activity — sudo for bytes/s".fg(theme::DIM)
+            match self.metrics.warning() {
+                _ if self.metrics.is_bytes() => "◉ usbmon bytes/s".fg(theme::MINT),
+                Some(MetricsWarning::KernelLockdown) => {
+                    "⚠ usbmon blocked by kernel lockdown".fg(theme::PEACH).bold()
+                }
+                Some(MetricsWarning::LoadUsbMon) => {
+                    "⚠ usbmon not loaded — modprobe usbmon".fg(theme::PEACH).bold()
+                }
+                None => "◌ urb activity — sudo for bytes/s".fg(theme::DIM),
             },
         ]);
         f.render_widget(Paragraph::new(line), area);

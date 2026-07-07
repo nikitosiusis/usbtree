@@ -256,7 +256,7 @@ fn overrides_path() -> Option<PathBuf> {
 
 // ---- downloadable usb.ids (usbtree --updatelist) ----
 
-const USB_IDS_URL: &str = "https://raw.githubusercontent.com/systemd/hwdata/main/usb.ids";
+const USB_IDS_URL: &str = "https://raw.githubusercontent.com/vcrhonek/hwdata/refs/heads/master/usb.ids";
 
 pub fn ids_cache_path() -> Option<PathBuf> {
     Some(config_dir()?.join("usb.ids"))

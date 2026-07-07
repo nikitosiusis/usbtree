@@ -105,7 +105,18 @@ Config lives in `~/.config/usbtree/` (`%APPDATA%\usbtree\` on Windows):
 The header shows which source is active:
 
 - **`◌ urb activity`** — unprivileged default: URB-count deltas from sysfs `urbnum`, shown as relative activity (URBs/s)
-- **`◉ usbmon bytes/s`** — real per-device bandwidth when `/sys/kernel/debug/usb/usbmon` is readable, i.e. running as root with the `usbmon` module loaded and debugfs mounted
+- **`◉ usbmon bytes/s`** — real per-device bandwidth when usbmon is readable. usbtree tries `/sys/kernel/debug/usb/usbmon/0u` first, then falls back to `/dev/usbmon0` on Linux systems where kernel lockdown restricts debugfs.
+- **`⚠ usbmon not loaded — modprobe usbmon`** — shown when usbtree is already running as root on Linux, but the usbmon device is missing. Run `sudo modprobe usbmon`, then restart usbtree.
+- **`⚠ usbmon blocked by kernel lockdown`** — shown when usbtree is already running as root, but the kernel refuses debugfs usbmon access because lockdown is active and the `/dev/usbmon0` fallback is also unavailable.
+
+For bytes/s on Linux, run as root with the `usbmon` module loaded:
+
+```sh
+sudo modprobe usbmon
+sudo usbtree
+```
+
+If Secure Boot or kernel lockdown blocks debugfs, usbtree will use `/dev/usbmon0` automatically when available. If the lockdown warning remains, confirm `usbmon` is loaded and `/dev/usbmon0` exists before changing Secure Boot or lockdown settings.
 
 On macOS and Windows the tree, details, and hot-plug log all work; activity sparklines are not available.
 

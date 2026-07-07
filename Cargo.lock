@@ -1565,6 +1565,7 @@ dependencies = [
 name = "usbtree"
 version = "0.0.1"
 dependencies = [
+ "libc",
  "nusb",
  "ratatui",
  "usb-ids",

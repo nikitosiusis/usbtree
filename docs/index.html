@@ -712,8 +712,11 @@
           <h3>Live bandwidth</h3>
           <p>
             Per-device sparklines in the tree and a bandwidth graph in the
-            detail panel. Unprivileged URBs/s on Linux; real bytes/s with root +
-            usbmon.
+            detail panel. Unprivileged URBs/s on Linux; real bytes/s with root
+            and usbmon, including the binary monitor fallback when debugfs is
+            locked down. If root still cannot read throughput, the header points
+            at either <code>modprobe usbmon</code> for a missing monitor device
+            or kernel lockdown when the kernel blocks usbmon access.
           </p>
         </div>
         <div class="card">
