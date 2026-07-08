@@ -1015,11 +1015,15 @@ impl App {
             "  ·  ".fg(theme::FAINT),
             format!("up {:02}:{:02}", up / 60, up % 60).fg(theme::DIM),
             "  ·  ".fg(theme::FAINT),
-            self.metrics.header_note().fg(if self.metrics.is_bytes() {
-                theme::MINT
+            if self.metrics.is_warning() {
+                self.metrics.header_note().fg(theme::PEACH).bold()
             } else {
-                theme::DIM
-            }),
+                self.metrics.header_note().fg(if self.metrics.is_bytes() {
+                    theme::MINT
+                } else {
+                    theme::DIM
+                })
+            },
         ]);
         f.render_widget(Paragraph::new(line), area);
     }

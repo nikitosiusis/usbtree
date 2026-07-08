@@ -758,11 +758,14 @@
           <h3>Live bandwidth</h3>
           <p>
             Per-device sparklines in the tree and a bandwidth graph in the
-            detail panel. Unprivileged URBs/s on Linux; real bytes/s with root +
-            the usbmon module (<code>sudo modprobe usbmon</code>).
-            <b>Linux only</b> — macOS/Windows expose no unprivileged
-            per-device traffic counter (sudo won't help), so live stats aren't
-            implemented there yet.
+            detail panel. Unprivileged URBs/s on Linux; real bytes/s with root
+            and the usbmon module (<code>sudo modprobe usbmon</code>),
+            including the binary monitor fallback when debugfs is locked down.
+            If root still cannot read throughput, the header points at either
+            <code>modprobe usbmon</code> for a missing monitor device or kernel
+            lockdown when the kernel blocks usbmon access. <b>Linux only</b> —
+            macOS/Windows expose no unprivileged per-device traffic counter
+            (sudo won't help), so live stats aren't implemented there yet.
           </p>
         </div>
         <div class="card">

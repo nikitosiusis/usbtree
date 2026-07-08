@@ -10,7 +10,7 @@ usbtree = rust TUI. show USB device tree live. ratatui draw, nusb scan. no root.
 
 - `src/main.rs` — App, event loop, all drawing, theme (charm pastels). 1s rescan tick.
 - `src/usb.rs` — scan via nusb, sysfs-style names (`1-1.4`), tree flatten/fold, usb.ids parse, `~/.config/usbtree/overrides.ids`, `demo_scan`.
-- `src/metrics.rs` — activity rates. urbnum sysfs (unprivileged, linux), usbmon (root, real bytes/s), demo (synthetic).
+- `src/metrics.rs` — activity rates. urbnum sysfs (unprivileged, linux), usbmon text via debugfs or binary `/dev/usbmon0` fallback (root, real bytes/s), demo (synthetic).
 - `scripts/install.sh` — curl|sh installer. asset names MUST match release.yml pattern `usbtree_<ver>_<os>-<arch>.tar.gz` + checksums.txt.
 - `scripts/shots.sh` — render tapes. needs vhs + ttyd + ffmpeg.
 - `tapes/demo.tape` — VHS walkthrough. timings assume demo loop (below). change demo_scan → check tape still lands events.
